@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Input, Button, Center, Box, Image, Text } from 'native-base';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -39,7 +40,6 @@ export default function Login() {
 
                 router.push('/home');
             } else {
-                // Se o login falhar, exibe uma mensagem de erro
                 Alert.alert('Erro de login', data.message[0].messages[0].message);
             }
         } catch (error) {
@@ -51,24 +51,48 @@ export default function Login() {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Login</Text>
-            <TextInput
+        <Box alignItems="center" flex={1} bgColor={'#111827'}>
+            <Image source={require('../assets/images/home.png')} resizeMode='cover' width="100%" height="1/2" alt='icon' />
+            <Text color={'white'} fontSize={'2xl'} bold>Bem-vinda à minha Tenda</Text>
+            <Text mb={8} color={'white'} fontSize={'md'}>por Mirella Dellazzari</Text>
+            <Input
                 placeholder="Email"
                 value={email}
+                size="lg"
                 onChangeText={setEmail}
-                style={{ borderBottomWidth: 1, marginBottom: 10, width: '80%' }}
+                width="80%"
+                marginBottom={2}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                rounded={'full'}
+                p={3}
+                borderColor={'white'}
+                placeholderTextColor={'gray.400'}
             />
-            <TextInput
+            <Input
                 placeholder="Senha"
+                size="lg"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
-                style={{ borderBottomWidth: 1, marginBottom: 10, width: '80%' }}
+                width="80%"
+                marginBottom={2}
+                rounded={'full'}
+                p={3}
+                borderColor={'white'}
+                placeholderTextColor={'gray.400'}
             />
-            <Button title={loading ? 'Entrando...' : 'Entrar'} onPress={handleLogin} disabled={loading} />
-        </View>
+            <Button
+                disabled={loading}
+                width="80%"
+                size={"lg"}
+                variant={'subtle'}
+                backgroundColor={'amber.400'}
+                rounded={'full'}
+                onPress={() => handleLogin()}
+            >
+                {loading ? 'Entrando...' : 'Entrar'}
+            </Button>
+        </Box>
     );
 }
