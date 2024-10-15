@@ -9,11 +9,12 @@ export default function Index() {
 
   const handlePress = async () => {
     const token = await AsyncStorage.getItem('token');
-    if (token) {
-      router.push('/home');
-    } else {
-      router.push('/login');
-    }
+    // if (token) {
+    //   router.push('/home');
+    // } else {
+    //   router.push('/login');
+    // }
+    router.push('/login')
   };
 
   return (
